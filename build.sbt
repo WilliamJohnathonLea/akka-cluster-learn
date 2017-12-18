@@ -7,8 +7,9 @@ lazy val cluster = (project in file("."))
   .enablePlugins(JavaServerAppPackaging)
   .settings(
     name := "cluster-server",
-    dockerRepository := Some("universauth"),
-    dockerExposedPorts := Seq(2551)
+    dockerRepository := Some("wjlea93"),
+    dockerExposedPorts := Seq(2551),
+    dockerUpdateLatest := false
   )
 
 libraryDependencies +=
