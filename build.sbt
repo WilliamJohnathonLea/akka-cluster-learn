@@ -1,5 +1,5 @@
 
-version := "1.1"
+version := "1.2"
 
 scalaVersion := "2.12.2"
 
@@ -8,6 +8,7 @@ lazy val cluster = (project in file("."))
   .settings(
     name := "cluster-server",
     dockerRepository := Some("wjlea93"),
+    dockerBaseImage := "openjdk:8-jre-slim",
     dockerExposedPorts := Seq(2551),
     dockerUpdateLatest := false
   )
