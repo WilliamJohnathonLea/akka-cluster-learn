@@ -8,7 +8,7 @@ import akka.actor.Actor
 /**
   * Created by william on 23/06/17.
   */
-class SimpleClusterListener extends Actor with ActorLogging {
+abstract class BaseClusterActor extends Actor with ActorLogging {
 
   val cluster = Cluster(context.system)
 
@@ -19,7 +19,9 @@ class SimpleClusterListener extends Actor with ActorLogging {
   }
   override def postStop(): Unit = cluster.unsubscribe(self)
 
-  def receive = {
+  final def receive: Actor.Receive = clusterMessages orElse userMessages
+
+  final def clusterMessages: Actor.Receive = {
     case MemberUp(member) =>
       log.info("Member is Up: {}", member.address)
     case UnreachableMember(member) =>
@@ -30,4 +32,7 @@ class SimpleClusterListener extends Actor with ActorLogging {
         member.address, previousStatus)
     case _: MemberEvent => // ignore
   }
+
+  def userMessages: Actor.Receive
+
 }

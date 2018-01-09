@@ -11,7 +11,7 @@ object Main {
 
     val system = ActorSystem("ClusterSystem")
 
-    system.actorOf(Props[SimpleClusterListener])
+    system.actorOf(Props[HelloActor])
 
   }
 
